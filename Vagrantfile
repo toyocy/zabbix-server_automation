@@ -33,5 +33,13 @@ Vagrant.configure("2") do |config|
       h.memory = "4096"
       h.cpus = 2
     end
+    ps.vm.provision "ansible_local" do |ansible|
+      ansible.compatibility_mode = "2.0"
+      ansible.provisioning_path = "/home/vagrant/ansible/"
+      ansible.playbook = "postgres_setup.yml"
+      ansible.verbose        = true
+      ansible.inventory_path = "inventory.ini"
+      ansible.limit          = "all"
+    end
   end
 end
