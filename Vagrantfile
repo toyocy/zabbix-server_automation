@@ -16,14 +16,22 @@ Vagrant.configure("2") do |config|
       h.memory = "4096"
       h.cpus = 2
     end
+    z.vm.provision "ansible_local" do |ansible|
+      ansible.compatibility_mode = "2.0"
+      ansible.provisioning_path = "/home/vagrant/ansible/"
+      ansible.playbook = "zabbix_setup.yml"
+      ansible.verbose        = true
+      ansible.inventory_path = "inventory.ini"
+      ansible.limit          = "all"
+    end
   end
 
-  config.vm.provision "ansible_local" do |ansible|
-    ansible.compatibility_mode = "2.0"
-    ansible.provisioning_path = "/home/vagrant/ansible/"
-    ansible.playbook = "zabbix_setup.yml"
-    ansible.verbose        = true
-    ansible.inventory_path = "inventory.ini"
-    ansible.limit          = "all"
+  config.vm.define "postgres" do |ps|
+    ps.vm.hostname = "postgres"
+    ps.vm.provider "hyperv" do |h|
+      h.vmname = "postgres"
+      h.memory = "4096"
+      h.cpus = 2
+    end
   end
 end
