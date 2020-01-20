@@ -1,8 +1,9 @@
 ---
 - name: check_install / Check firewalld status
   service_facts:
+  no_log: true
   register: service_state
-  
+
 - name: check_install / Allow ports for firewalld
   firewalld:
     port: "{{ item }}"

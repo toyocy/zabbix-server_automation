@@ -6,7 +6,7 @@
 
 - name: install / Clean yum cache
   command: yum clean all
-  warn: false
+  # warn: false
 
 - name: install / Install Zabbix server, frontend, agent
   yum:

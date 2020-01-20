@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe yumrepo('zabbix') do
+describe file('/etc/yum.repos.d/zabbix.repo') do
   it { should exist }
 end
 

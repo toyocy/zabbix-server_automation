@@ -1,0 +1,2 @@
+---
+- include_tasks: roles/php/tasks/install.yml
