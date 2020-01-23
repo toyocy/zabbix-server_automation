@@ -38,13 +38,17 @@ describe command('docker -v') do
 end
 
 describe command('docker-compose -v') do
-  its(:stdout) { should match /docker-compose version 1.25.\d+/ }
+  its(:stdout) { should match /docker-compose version 1.2\d+/ }
 end
 
 describe docker_image('postgres:12') do
   it { should be_exist }
 end
 
-describe docker_container('postgres') do
-  it { should have_volume('/var/lib/postgresql/data/', '/opt/postgres/data') }
+describe docker_container('zabbix_postgres-zabbix_1') do
+  it { should have_volume('/var/lib/postgresql/data', '/opt/zabbix/data') }
+end
+
+describe docker_container('zabbix_postgres-zabbix_1') do
+  it { should be_running }
 end
