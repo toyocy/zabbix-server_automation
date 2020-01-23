@@ -1,3 +1,6 @@
 ---
 - include_tasks: roles/postgres/tasks/check_install.yml
-- include_tasks: roles/postgres/tasks/install.yml
+- include_tasks: roles/postgres/tasks/docker_install.yml
+- include_tasks: roles/postgres/tasks/docker_compose_install.yml
+- include_tasks: roles/postgres/tasks/postgres_container.yml
+

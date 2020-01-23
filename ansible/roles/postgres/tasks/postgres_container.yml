@@ -1,0 +1,10 @@
+---
+- name: install / Copy docker-compose file
+  copy:
+    src: /home/vagrant/ansible/roles/postgres/files/docker-compose.yml
+    dest: /opt/zabbix/
+
+- name: install / Start postgresql container
+  docker_compose:
+    project_src: /opt/zabbix/
+    state: present

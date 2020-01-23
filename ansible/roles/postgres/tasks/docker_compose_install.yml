@@ -1,0 +1,42 @@
+---
+- name: install / Install docker-compose requirements
+  yum:
+    name: "{{ docker_compose_req_packages }}"
+    state: latest
+
+- name: install / Install docker compose
+  pip:
+    name: docker-compose
+    state: latest
+
+- name: install / Make zabbix directory
+  file:
+    path: /opt/zabbix
+    state: directory
+    mode: "0777"
+
+# - name: install / Run postgresql container
+#   tasks:
+#     - docker_compose:
+#         project_src: /roles/postgres/files
+#         definition:
+#           version: '3'
+#           services:
+#             db:
+#               image: "postgres:{{ postgres_version }}"
+#               environment:
+#                 POSTGRES_USER: "{{ db_user }}"
+#                 POSTGRES_PASSWORD: "{{ db_password }}"
+#                 POSTGRES_DB: "{{ db_name }}"
+#               volumes:
+#                 - "{{ postgres_mount_path }}:/var/lib/postgresql/data/"
+#               ports:
+#                 - "{{postgres_firewalld_port}}:{{postgres_firewalld_port}}"
+#       register: output
+
+#     - debug:
+#         var: output
+
+#     - assert:
+#         that:
+#           - "db.zabbix_db_1.state.running"
