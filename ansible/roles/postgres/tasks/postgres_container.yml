@@ -1,10 +1,22 @@
 ---
+- name: install / Check docker-compose file exist
+  stat:
+    path: /opt/zabbix/docker-compose.yml
+  register: yml_file
+
 - name: install / Copy docker-compose file
   copy:
     src: /home/vagrant/ansible/roles/postgres/files/docker-compose.yml
     dest: /opt/zabbix/
+  when: not yml_file.stat.exists
+
+- name: install / Get docker container info
+  docker_container_info:
+    name: "{{ postgres_container_name }}"
+  register: result
 
 - name: install / Start postgresql container
   docker_compose:
     project_src: /opt/zabbix/
     state: present
+  when: not result.container.State.Running

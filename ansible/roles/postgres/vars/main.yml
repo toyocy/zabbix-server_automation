@@ -23,3 +23,5 @@ docker_packages:
   - containerd.io
 
 docker_compose_version: 1.25.2
+
+postgres_container_name: zabbix_postgres-zabbix_1
