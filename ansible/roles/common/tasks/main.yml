@@ -1,8 +1,19 @@
 ---
-- name: Presetup / disable SELinux
+- name: configure / disable SELinux
   selinux:
     state: disabled
-  register: result
+  when: ansible_selinux.config_mode == "enforcing"
+
+- name: configure / Disable ipv6
+  sysctl:
+    state: present
+    name: "{{ item }}"
+    value: "1"
+    sysctl_set: yes
+    reload: yes
+  loop:
+    - net.ipv6.conf.all.disable_ipv6
+    - net.ipb6.conf.default.disable_ipv6
 
 - name: update yum packages
   yum:
