@@ -4,10 +4,6 @@
     state: disabled
   register: result
 
-- name: Presetup / server reboot
-  reboot:
-  when: result.reboot_required
-  
 - name: update yum packages
   yum:
     name: '*'

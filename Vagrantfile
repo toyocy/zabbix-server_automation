@@ -9,14 +9,14 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder './ansible', '/home/vagrant/ansible', create: true, owner: 'vagrant', group: 'vagrant'
   config.vm.box = "centos/7"
 
-  config.vm.define "zabbix" do |z|
-    z.vm.hostname = "zabbix"
-    z.vm.provider "hyperv" do |h|
-      h.vmname = "zabbix"
+  config.vm.define "zabbix_1" do |z1|
+    z1.vm.hostname = "zabbix_1"
+    z1.vm.provider "hyperv" do |h|
+      h.vmname = "zabbix_1"
       h.memory = "4096"
       h.cpus = 2
     end
-    z.vm.provision "ansible_local" do |ansible|
+    z1.vm.provision "ansible_local" do |ansible|
       ansible.compatibility_mode = "2.0"
       ansible.provisioning_path = "/home/vagrant/ansible/"
       ansible.playbook = "zabbix_setup.yml"
@@ -26,20 +26,37 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  config.vm.define "postgres" do |ps|
-    ps.vm.hostname = "postgres"
-    ps.vm.provider "hyperv" do |h|
-      h.vmname = "postgres"
+  # config.vm.define "postgres" do |ps|
+  #   ps.vm.hostname = "postgres"
+  #   ps.vm.provider "hyperv" do |h|
+  #     h.vmname = "postgres"
+  #     h.memory = "4096"
+  #     h.cpus = 2
+  #   end
+  #   ps.vm.provision "ansible_local" do |ansible|
+  #     ansible.compatibility_mode = "2.0"
+  #     ansible.provisioning_path = "/home/vagrant/ansible/"
+  #     ansible.playbook = "postgres_setup.yml"
+  #     ansible.verbose        = true
+  #     ansible.inventory_path = "inventory.ini"
+  #     ansible.limit          = "all"
+  #   end
+  # end
+
+  config.vm.define "zabbix_2" do |z2|
+    z2.vm.hostname = "zabbix_2"
+    z2.vm.provider "hyperv" do |h|
+      h.vmname = "zabbix_2"
       h.memory = "4096"
       h.cpus = 2
     end
-    ps.vm.provision "ansible_local" do |ansible|
-      ansible.compatibility_mode = "2.0"
-      ansible.provisioning_path = "/home/vagrant/ansible/"
-      ansible.playbook = "postgres_setup.yml"
-      ansible.verbose        = true
-      ansible.inventory_path = "inventory.ini"
-      ansible.limit          = "all"
+    z2.vm.provisionin "ansible_local" do |ansible|
+          ansible.compatibility_mode = "2.0"
+          ansible.provisioning_path = "/home/vagrant/ansible/"
+          ansible.playbook = "zabbix_setup.yml"
+          ansible.verbose        = true
+          ansible.inventory_path = "inventory.ini"
+          ansible.limit          = "all"
     end
   end
 end
