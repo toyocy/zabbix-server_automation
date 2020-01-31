@@ -2,9 +2,8 @@
 - name: Setup Zabbix Server
   hosts: zabbix_servers
   become: true
-  gather_facts: no
 
   roles:
     - { role: common, tags: common }
-    # - { role: zabbix, tags: zabbix }
-    # - { role: php, tags: php }
+    - { role: zabbix, tags: zabbix }
+    - { role: php, tags: php }

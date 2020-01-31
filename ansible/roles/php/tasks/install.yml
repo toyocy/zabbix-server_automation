@@ -1,13 +1,25 @@
 ---
+- name: install / Check epel-release
+  stat:
+    path: /etc/yum.repos.d/epel.repo
+  register: epel_repo
+
+- name: install / Check remi-repo
+  stat:
+    path: /etc/yum.repos.d/remi-php71.repo
+  register: remi_repo
+
 - name: install / Install epel-release
   yum:
     name: epel-release
     state: present
+  when: not epel_repo.stat.exists
 
 - name: install / Install Remi
   yum:
     name: http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
     state: present
+  when: not remi_repo.stat.exists
 
 - name: install / Update all php dependencies
   yum:

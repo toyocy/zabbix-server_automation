@@ -5,8 +5,9 @@
     state: present
 
 - name: install / Clean yum cache
-  command: yum clean all
-  # warn: false
+  command:
+    cmd: yum clean all
+    warn: false
 
 - name: install / Install Zabbix server, frontend, agent
   yum:
