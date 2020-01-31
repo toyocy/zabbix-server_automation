@@ -19,4 +19,7 @@
   docker_compose:
     project_src: /opt/zabbix/
     state: present
-  when: not result.container.State.Running
+  when: result.container.State is not defined or not result.container.State.Running
+
+# - name: install / Change owner to data directory
+#   command: chown root. /opt/zabbix/data

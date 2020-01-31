@@ -1,8 +1,7 @@
 ---
-- name: Presetup / disable SELinux
+- name: presetup / Disable SELinux
   selinux:
     state: disabled
-  register: result
 
 - name: update yum packages
   yum:
