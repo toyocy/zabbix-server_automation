@@ -14,3 +14,46 @@
     name: "{{ zabbix_packages }}"
     state: present
     enablerepo: zabbix
+
+- name: install / Copy zabbix config file
+  copy:
+    src: /home/vagrant/ansible/roles/zabbix/files/zabbix/zabbix_server.conf
+    dest: /etc/zabbix/
+    remote_src: yes
+    backup: yes
+
+- name: install / Copy nginx config file
+  copy:
+    src: /home/vagrant/ansible/roles/zabbix/files/nginx/conf.d/zabbix.conf
+    dest: /etc/nginx/conf.d/
+    remote_src: yes
+    backup: yes
+
+- name: install / Copy php-fpm config file
+  copy:
+    src: /home/vagrant/ansible/roles/zabbix/files/php/php-fpm.d/zabbix.conf
+    dest: /etc/php-fpm.d/
+    remote_src: yes
+    backup: yes
+
+- name: install / Start and enable nginx zabbix-server zabbix-agent php-fpm
+  systemd:
+    name: "{{ item }}"
+    state: restarted
+    enabled: yes
+  loop:
+    - nginx
+    - zabbix-server
+    - zabbix-agent
+    - php-fpm
+
+- name: install / Change directory owner
+  file:
+    path: "{{ item }}"
+    owner: nginx
+    group: nginx
+  loop:
+    - /etc/zabbix/web/
+    - /var/lib/php/opcache
+    - /var/lib/php/session
+    - /var/lib/php/wsdlcache

@@ -21,8 +21,12 @@
     state: present
   when: not remi_repo.stat.exists
 
+- command: php -v
+  register: php_info
+
 - name: install / Update all php dependencies
   yum:
     name: '*'
     enablerepo: remi-php71
     state: latest
+  when: php_info.stdout is version('7.1', '<')
