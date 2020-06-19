@@ -1,7 +1,7 @@
 ---
 - name: install / Install Zabbix repository
   yum:
-    name: https://repo.zabbix.com/zabbix/{{ zabbix_version }}/rhel/7/x86_64/zabbix-release-{{ zabbix_release }}.el7.noarch.rpm
+    name: https://repo.zabbix.com/zabbix/{{ zabbix_version }}/rhel/8/x86_64/zabbix-release-{{ zabbix_release }}.el8.noarch.rpm
     state: present
 
 - name: install / Clean yum cache
@@ -17,21 +17,21 @@
 
 - name: install / Copy zabbix config file
   copy:
-    src: /home/vagrant/ansible/roles/zabbix/files/zabbix/zabbix_server.conf
+    src: /opt/ansible/roles/zabbix/files/zabbix/zabbix_server.conf
     dest: /etc/zabbix/
     remote_src: yes
     backup: yes
 
 - name: install / Copy nginx config file
   copy:
-    src: /home/vagrant/ansible/roles/zabbix/files/nginx/conf.d/zabbix.conf
+    src: /opt/ansible/roles/zabbix/files/nginx/conf.d/zabbix.conf
     dest: /etc/nginx/conf.d/
     remote_src: yes
     backup: yes
 
 - name: install / Copy php-fpm config file
   copy:
-    src: /home/vagrant/ansible/roles/zabbix/files/php/php-fpm.d/zabbix.conf
+    src: /opt/ansible/ansible/roles/zabbix/files/php/php-fpm.d/zabbix.conf
     dest: /etc/php-fpm.d/
     remote_src: yes
     backup: yes

@@ -6,37 +6,20 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
-  config.vm.synced_folder './ansible', '/home/vagrant/ansible', create: true, owner: 'vagrant', group: 'vagrant'
+  config.vm.synced_folder './ansible', '/opt/ansible', create: true, owner: 'vagrant', group: 'vagrant'
   config.vm.box = "centos/7"
 
-  config.vm.define "zabbix" do |z|
-    z.vm.hostname = "zabbix"
+  config.vm.define "zabbix5-sv" do |z|
+    z.vm.hostname = "zabbix5-sv"
     z.vm.provider "hyperv" do |h|
-      h.vmname = "zabbix"
+      h.vmname = "zabbix5-sv"
       h.memory = "4096"
       h.cpus = 2
     end
     z.vm.provision "ansible_local" do |ansible|
       ansible.compatibility_mode = "2.0"
-      ansible.provisioning_path = "/home/vagrant/ansible/"
+      ansible.provisioning_path = "/opt/ansible/"
       ansible.playbook = "zabbix_setup.yml"
-      ansible.verbose        = true
-      ansible.inventory_path = "inventory.ini"
-      ansible.limit          = "all"
-    end
-  end
-
-  config.vm.define "postgres" do |ps|
-    ps.vm.hostname = "postgres"
-    ps.vm.provider "hyperv" do |h|
-      h.vmname = "postgres"
-      h.memory = "4096"
-      h.cpus = 2
-    end
-    ps.vm.provision "ansible_local" do |ansible|
-      ansible.compatibility_mode = "2.0"
-      ansible.provisioning_path = "/home/vagrant/ansible/"
-      ansible.playbook = "postgres_setup.yml"
       ansible.verbose        = true
       ansible.inventory_path = "inventory.ini"
       ansible.limit          = "all"

@@ -6,4 +6,5 @@
   roles:
     - { role: common, tags: common }
     - { role: php, tags: php }
-    - { role: zabbix, tags: zabbix }
+    # - { role: postgres, tags: posgres }
+    # - { role: zabbix, tags: zabbix }

@@ -6,7 +6,7 @@
 
 - name: install / Check remi-repo
   stat:
-    path: /etc/yum.repos.d/remi-php71.repo
+    path: /etc/yum.repos.d/remi-php72.repo
   register: remi_repo
 
 - name: install / Install epel-release
@@ -24,9 +24,9 @@
 - command: php -v
   register: php_info
 
-- name: install / Update all php dependencies
-  yum:
-    name: '*'
-    enablerepo: remi-php71
-    state: latest
-  when: php_info.stdout is version('7.1', '<')
+# - name: install / Update all php dependencies
+#   yum:
+#     name: '*'
+#     enablerepo: remi-php72
+#     state: latest
+#   when: php_info.stdout is version('7.2', '<')

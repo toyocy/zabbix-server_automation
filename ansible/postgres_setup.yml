@@ -1,8 +1,0 @@
----
-- name: Setup PostgreSQL Server
-  hosts: postgres_servers
-  become: true
-
-  roles:
-    - { role: common, tags: common }
-    # - { role: postgres, tags: posgres }

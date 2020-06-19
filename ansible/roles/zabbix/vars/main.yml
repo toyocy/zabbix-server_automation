@@ -2,8 +2,8 @@
 zabbix_server_port: 10050
 zabbix_agent_port: 10051
 
-zabbix_version: 4.4
-zabbix_release: "4.4-1"
+zabbix_version: 5.0
+zabbix_release: "5.0-1"
 
 zabbix_firewalld_port:
   - "{{ zabbix_server_port }}/tcp"
